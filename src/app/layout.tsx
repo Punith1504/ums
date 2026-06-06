@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "UMS | University Management System",
-  description: "Enterprise grade University Management System",
+  title: "KSRMMS | KSRM Management System",
+  description: "Management System for KSRM College of Engineering",
 };
 
 export default function RootLayout({

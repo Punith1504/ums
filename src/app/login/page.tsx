@@ -11,9 +11,9 @@ export default function LoginPage() {
 
       <div className="z-10 w-full max-w-md mx-auto p-4">
         <GlassCard className="flex flex-col space-y-6">
-          <div className="text-center space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">Welcome to UMS</h1>
-            <p className="text-sm text-muted-foreground">Sign in with your College ID</p>
+          <div className="space-y-2 text-center">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground">Welcome to KSRMMS</h1>
+            <p className="text-muted-foreground">Enter your credentials to access your account</p>
           </div>
 
           <LoginForm />

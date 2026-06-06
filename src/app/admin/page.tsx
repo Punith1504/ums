@@ -1,55 +1,112 @@
-import { GlassCard, ClayCard } from "@/components/ui/VibeCard";
-import Link from "next/link";
+'use client';
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { GlassCard } from '@/components/ui/VibeCard';
+import { BellRing, FileText, CheckCircle2, UploadCloud, Users, GraduationCap } from 'lucide-react';
 
 export default function AdminDashboard() {
+  const [announcement, setAnnouncement] = useState('');
+
   return (
-    <main className="min-h-screen p-8 bg-gradient-to-br from-amber-50 via-white to-orange-50 dark:from-slate-950 dark:via-amber-950 dark:to-slate-950">
-      <div className="max-w-6xl mx-auto space-y-8">
-        <header className="flex justify-between items-center">
-          <div>
-            <h1 className="text-4xl font-extrabold tracking-tight">Super Admin Control</h1>
-            <p className="text-muted-foreground mt-1">Configure college settings and modules.</p>
-          </div>
-          <div className="flex gap-4 items-center">
-            <Link href="/login" className="text-sm font-medium hover:underline text-muted-foreground">Sign Out</Link>
-            <div className="h-12 w-12 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 shadow-lg"></div>
-          </div>
-        </header>
+    <div className="w-full max-w-7xl mx-auto space-y-8 pb-12">
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+        <h1 className="text-3xl font-bold text-white mb-2">Admin Control Panel</h1>
+        <p className="text-slate-400">Manage university announcements and student marks.</p>
+      </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <ClayCard className="col-span-1 md:col-span-2">
-            <h2 className="text-xl font-bold mb-4">Active Modules</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {['Academics', 'Finance & Ledgers', 'Campus Events', 'Hostel Management'].map((mod, i) => (
-                <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-white/50 dark:bg-black/20 backdrop-blur border border-white/20 shadow-sm">
-                  <span className="font-semibold">{mod}</span>
-                  <div className={`w-12 h-6 rounded-full flex items-center p-1 cursor-pointer transition-colors ${i === 3 ? 'bg-muted-foreground/30' : 'bg-green-500'}`}>
-                    <div className={`w-5 h-5 bg-white rounded-full shadow-sm transform transition-transform ${i === 3 ? '' : 'translate-x-5'}`}></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </ClayCard>
-
-          <GlassCard className="col-span-1">
-            <h2 className="text-xl font-bold mb-4">Theme Settings</h2>
-            <div className="space-y-6">
-              <div>
-                <label className="text-sm font-medium text-muted-foreground">Primary Color Accent</label>
-                <div className="flex gap-3 mt-3">
-                  <div className="w-8 h-8 rounded-full bg-purple-500 ring-2 ring-offset-2 ring-purple-500 ring-offset-background cursor-pointer shadow-sm"></div>
-                  <div className="w-8 h-8 rounded-full bg-blue-500 cursor-pointer shadow-sm hover:scale-110 transition-transform"></div>
-                  <div className="w-8 h-8 rounded-full bg-emerald-500 cursor-pointer shadow-sm hover:scale-110 transition-transform"></div>
-                  <div className="w-8 h-8 rounded-full bg-amber-500 cursor-pointer shadow-sm hover:scale-110 transition-transform"></div>
-                </div>
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { title: 'Total Students', value: '4,205', icon: Users, color: 'text-blue-400', bg: 'bg-blue-500/10' },
+          { title: 'Active Courses', value: '186', icon: GraduationCap, color: 'text-purple-400', bg: 'bg-purple-500/10' },
+          { title: 'Pending Approvals', value: '12', icon: CheckCircle2, color: 'text-amber-400', bg: 'bg-amber-500/10' },
+        ].map((stat, i) => (
+          <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+            <GlassCard className="p-6 flex items-center gap-4 bg-slate-900/50 border-slate-800">
+              <div className={`p-4 rounded-2xl ${stat.bg} ${stat.color}`}>
+                <stat.icon className="w-8 h-8" />
               </div>
-              <button className="w-full py-3 bg-foreground text-background rounded-xl font-semibold hover:opacity-90 active:scale-95 transition-all shadow-md">
-                Save Changes
+              <div>
+                <p className="text-slate-400 text-sm font-medium">{stat.title}</p>
+                <h3 className="text-3xl font-bold text-white mt-1">{stat.value}</h3>
+              </div>
+            </GlassCard>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        {/* Post Announcement */}
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+          <GlassCard className="p-6 bg-slate-900/50 border-slate-800 h-full flex flex-col">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-pink-500/20 rounded-lg">
+                <BellRing className="w-5 h-5 text-pink-400" />
+              </div>
+              <h2 className="text-xl font-bold text-white">Post Announcement</h2>
+            </div>
+            
+            <div className="flex-1 flex flex-col gap-4">
+              <input 
+                type="text" 
+                placeholder="Announcement Title" 
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+              />
+              <textarea 
+                placeholder="Type the announcement details here..." 
+                className="w-full flex-1 min-h-[120px] bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 resize-none"
+                value={announcement}
+                onChange={(e) => setAnnouncement(e.target.value)}
+              />
+              <button className="w-full py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold rounded-xl shadow-lg transition-all active:scale-[0.98]">
+                Publish to Dashboard
               </button>
             </div>
           </GlassCard>
-        </div>
+        </motion.div>
+
+        {/* Upload Marks */}
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
+          <GlassCard className="p-6 bg-slate-900/50 border-slate-800 h-full">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-blue-500/20 rounded-lg">
+                <FileText className="w-5 h-5 text-blue-400" />
+              </div>
+              <h2 className="text-xl font-bold text-white">Upload Marks (CSV)</h2>
+            </div>
+            
+            <div className="flex flex-col gap-4">
+              <select className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none">
+                <option value="">Select Course</option>
+                <option value="cs301">CS301 - Data Structures</option>
+                <option value="cs302">CS302 - Web Technologies</option>
+              </select>
+              
+              <select className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none">
+                <option value="">Select Exam Type</option>
+                <option value="mid1">Mid Term 1</option>
+                <option value="mid2">Mid Term 2</option>
+                <option value="end">End Semester</option>
+              </select>
+
+              <div className="mt-4 border-2 border-dashed border-slate-700 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-slate-800/30 transition-colors cursor-pointer group">
+                <div className="p-4 bg-slate-800 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                  <UploadCloud className="w-8 h-8 text-blue-400" />
+                </div>
+                <h4 className="text-white font-medium mb-1">Drag & Drop CSV File</h4>
+                <p className="text-slate-500 text-sm">or click to browse from your computer</p>
+              </div>
+
+              <button className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition-all mt-2">
+                Process & Upload Marks
+              </button>
+            </div>
+          </GlassCard>
+        </motion.div>
+
       </div>
-    </main>
+    </div>
   );
 }
