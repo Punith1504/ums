@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '@/components/ui/VibeCard';
-import { Briefcase, Upload, CheckCircle2, Sparkles, Building2, DollarSign, MapPin, ChevronRight, FileText } from 'lucide-react';
+import { Briefcase, Upload, CheckCircle2, Sparkles, Building2, DollarSign, MapPin, ChevronRight, FileText, Search } from 'lucide-react';
 
 const allJobs = [
   { id: 1, company: 'TCS Digital', role: 'System Engineer', package: '7.0 LPA', location: 'Hyderabad / Pune', type: 'Full Time', match: 92, skills: ['Java', 'Python', 'SQL'] },
